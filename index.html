@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spin City</title>
+    <link rel="stylesheet" href="spincity.css" asp-append-version="true" />
+</head>
+    <body class="bg-body font-body text-typography">
+
+        <div class="play" id="play">
+            <div class="screen-sm">
+                <img class="logo-loader" src="img/spincity.png?cb=1">
+                <img class="logo-loader l-2" src="img/spincity-spin.png?cb=1">
+                <div class="shot">
+                    <img class="drip" src="img/blooddrip.png?cb=1">
+                </div>
+                <div class="shutter">
+                    <img class="bg-red" src="img/bg.jpg?cb=1">
+                    <img class="bg" src="img/bg.jpg?cb=1">
+                    <img class="win-img" id="gameImg" src="img/win_img.png?cb=1">
+                </div>
+                <img class="logo" src="img/logo.png?cb=1">
+                <div class="chars">
+                    <a class="char c-1 option">
+                        <img class="invasion i-1" src="img/invasion.png?cb=1">
+                        <img class="full" src="img/char1full.png?cb=1">
+                        <div class="dots d-1"></div>
+                        <div class="dots d-2"></div>
+                        <div class="dots d-3"></div>
+                    </a>
+                    <a class="char c-2 option">
+                        <img class="invasion i-2" src="img/invasion.png?cb=1">
+                        <img class="full" src="img/char2full.png?cb=1">
+                        <div class="dots d-1"></div>
+                        <div class="dots d-2"></div>
+                        <div class="dots d-3"></div>
+                    </a>
+                    <a class="char c-3 option">
+                        <img class="invasion i-3" src="img/invasion.png?cb=1">
+                        <img class="full" src="img/char3full.png?cb=1">
+                        <div class="dots d-1"></div>
+                        <div class="dots d-2"></div>
+                        <div class="dots d-3"></div>
+                    </a>
+                </div>
+                <div class="win-screen" id="winContent">
+                    <div class="title" id="gameResultTitle"></div>
+                    <div class="in">
+                        <div class="text" id="gameResultMessage"></div>
+                        <div class="button" id="buttonFace"></div>
+                    </div>
+                    <a href="https://www.betshop.gr/casino" target="_top" class="link" id="gameLink"></a>
+                </div>
+                <div class="skip-c"><button class="skip-btn" id="skip">[ <span>SKIP INTRO </span>]</button></div>
+            </div>
+        </div>
+        <script>
+            // Query the elements only once and use throughout 
+            const play = document.getElementById('play');
+            const gameResultTitle = document.getElementById('gameResultTitle');
+            const gameResultMessage = document.getElementById('gameResultMessage');
+            const buttonFace = document.getElementById('buttonFace');
+            const winContent = document.getElementById('winContent');
+            const gameLink = document.getElementById('gameLink');
+            const gameImg = document.getElementById('gameImg');
+        
+            window.addEventListener('load', () => {
+                setTimeout(function () { play.classList.add('loaded'); }, 300);
+        
+            });
+        
+            document.getElementById('skip').addEventListener('click', function () {
+                play.classList.add('skip');
+            });
+        
+            /* deactivate real function */
+            /*const optionClickHandler = async (option) => {
+                play.classList.add('fetching');
+                option.classList.add('selected');
+        
+                try {
+                    const response = await fetch('@drawUrl', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+        
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+        
+                    const answer = await response.json();
+        
+                    gameResultTitle.innerHTML = answer.title;
+                    gameResultMessage.innerHTML = answer.text;
+                    buttonFace.innerText = answer.button;
+                    winContent.classList.add(answer.state);
+                    gameLink.href = answer.link;
+                    gameImg.classList.add(answer.state);
+                    gameImg.src = answer.game + '?cb=' + Math.floor(Math.random() * 101);
+                    setTimeout(function () {
+                        play.classList.add('fetched');
+                    }, 2800);
+                } catch (e) {
+                    console.log(`There was a problem with the fetch operation: ${e.message}`);
+                    option.classList.remove('selected');
+                    play.classList.remove('fetching');
+                }
+        
+            };
+        
+            /* demo static function */
+            const optionClickHandler = (option) => {
+                play.classList.add('fetching');
+                option.classList.add('selected');
+        
+                setTimeout(function(){
+        
+                    gameResultTitle.innerHTML = 'Congratulations!';
+                    gameResultMessage.innerHTML = 'You won 10 free spins in';
+                    buttonFace.innerText = 'BIG BONUS';
+                    winContent.classList.add('win');
+                    gameLink.href = 'http://www.google.com';
+                    gameImg.classList.add('win');
+                    gameImg.src = 'img/win_img.png' + '?cb=' + Math.floor(Math.random() * 101);
+                    setTimeout(function () {
+                        play.classList.add('fetched');
+                    }, 2800);
+                }, 1500);
+        
+            };
+        
+            // add event listeners 
+                document.querySelectorAll('.option').forEach((option) => {
+                    option.addEventListener('click', function () {
+                        optionClickHandler(option);
+                    });
+                });
+        </script>
+
+    </body>
+</html>
